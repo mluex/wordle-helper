@@ -29,8 +29,11 @@
             btnHelp.addEventListener('click', function() { WordleHelper.help() }, false);
         }
 
-        injectStyles(styles) {
-            WordleHelper.createStyleElement('.wh-btn{position:fixed;bottom:9px;right:10px;display:block;background:var(--key-bg);color:var(--key-text-color);border:0;font-weight:700;text-transform:uppercase;height:58px;border-radius:4px;padding:0 20px;cursor:pointer}@media (max-width: 710px) {.wh-btn{bottom:auto;top:59px}}');
+        injectStyles() {
+            WordleHelper.createStyleElement('.wh-btn{position:fixed;bottom:9px;right:10px;display:block;' +
+                'background:var(--color-correct);color:var(--key-text-color);border:0;font-weight:700;' +
+                'text-transform:uppercase;height:58px;border-radius:4px;padding:0 20px;cursor:pointer}' +
+                '@media (max-width: 710px) {.wh-btn{bottom:auto;top:59px}}');
         }
 
         static createStyleElement(styles) {
@@ -55,8 +58,7 @@
         }
 
         static getState() {
-            let value = window.localStorage.getItem('nyt-wordle-state') || JSON.stringify({});
-            return JSON.parse(value)
+            return JSON.parse(window.localStorage.getItem('nyt-wordle-state') || JSON.stringify({}))
         }
 
         static getSuggestion() {
@@ -65,10 +67,7 @@
                 throw 'Sorry, I can only help with a game in progress.';
             }
 
-            let guesses = state.boardState;
-            let evaluations = state.evaluations;
-
-            WordleHelper.filterDictionary(guesses, evaluations);
+            WordleHelper.filterDictionary(state);
 
             if (dictionary.length === 0) {
                 throw 'Sorry, we couldn\'t find an applicable word.';
@@ -85,7 +84,10 @@
             return word.indexOf(char) >= 0;
         }
 
-        static filterDictionary(guesses, evaluations) {
+        static filterDictionary(state) {
+            let guesses = state.boardState;
+            let evaluations = state.evaluations;
+
             dictionary = dictionary.filter(function(word) {
                 let matches = true;
 
