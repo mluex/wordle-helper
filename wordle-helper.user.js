@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Wordle Helper
 // @namespace    https://github.com/mluex/wordle-helper
-// @version      0.1
+// @version      1.0.1
 // @description  Assistent for solving the daily Wordle Challenge by providing matching words.
 // @author       mluex
 // @match        https://www.nytimes.com/games/wordle/index.html
