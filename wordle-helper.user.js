@@ -75,7 +75,7 @@
         }
 
         static vocalLevel(vocalCount) {
-            return vocalCount;
+            return 5 - vocalCount;
         }
 
         static help() {
